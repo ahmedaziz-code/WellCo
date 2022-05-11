@@ -1,0 +1,60 @@
+.CalendarButton{
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+  font-size: 6em;
+  color: red;
+  cursor: pointer;
+  animation-delay: initial;
+  animation : swing 10s infinite;
+}
+.AddEventButton{
+  position: fixed;
+  left: 30px;
+  top: 60px;
+  font-size: 6em;
+  color: green;
+  cursor: pointer;
+  animation-delay: initial;
+  transition: all 0.3s;
+  animation: flash 5s infinite;
+}
+
+.ed-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 130px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+  -moz-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+  -ms-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+  -o-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+  box-shadow: 0 0 10px rgba(0,0,0,0.28);
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+}
+.ed-options.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 999;
+}
+.ed-options li {
+  float: left;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.ed-options li:last-child {
+  margin-bottom: 0;
+}
+.ed-options li a {
+  color: #686868;
+  font-size: 14px;
+  font-weight: 600;
+}
+.ed-opts > a:hover {
+  color: #e44d3a;
+}
+

@@ -1,0 +1,240 @@
+<p style="color: whitesmoke">works</p>
+<div class="CalendarButton">
+  <i class="fa fa-calendar fa-10x"  routerLink="/calendar"></i>
+</div>
+<div class="AddEventButton">
+  <i class="fa fa-plus-circle" aria-hidden="true" routerLink="/Event"></i>
+</div>
+<div class="container">
+
+<!--  Carousel starts-->
+  <h2 style="color: whitesmoke">aaa</h2>
+  <div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets/images/ramadan.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/images/eid.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/images/friday.jpg" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="card-body">
+      <fieldset style="border-color: indianred; border-radius: 25px; background-color: burlywood; height: 40px">
+        <h5 class="card-title" style="text-align: center; font-family: 'Adobe Garamond Pro Bold', fantasy; font-size: xxx-large; color: indianred">WellCo Events</h5>
+      </fieldset>
+    </div>
+  </div>
+<!-- Carousel ends-->
+
+<!--Card Grid Begin-->
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col" *ngFor="let e of eventList">
+      <div class="card" >
+        <img src="{{host+'/Event/ImageEvent/'+e.idEvent}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <div class="card-body">
+            <h5 class="card-title" style="font-size: large">{{e.name}}</h5>
+            <p class="card-text">{{e.description}}.</p>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-outline-success me-md-2" data-bs-toggle="modal" data-bs-target="#eventDetails" (click)="eventDetails(e)">More Details</button>
+            <button class="btn btn-outline-primary me-md-2" type="button" id="liveToastBtn0" (click)="participate(e)">Participate</button>
+            <button class="btn btn-outline-warning me-md-2" data-bs-toggle="modal" data-bs-target="#note" type="button" (click)="selectEvent(e)">Note</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Card Grid End-->
+
+
+</div>
+
+
+
+<!-- Models -->
+
+<!-- Modal Event Details Begin -->
+<div class="modal fade" id="eventDetails" tabindex="-1" aria-labelledby="eventDetailsLabel" aria-hidden="true">
+  <div class="modal-dialog " >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size: large">Event Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+        <div class="container">
+          <label>{{event.name}}</label>
+          <img class="card-img-top img-responsive" src = "{{host+'/Event/ImageEvent/'+event.idEvent}}" style = "height :200px" alt="">
+          <p>{{event.description}}</p>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <label>Start Date</label><br>
+              <input type="date" [value]="event.startDate">
+            </div>
+            <div class="col-md-6">
+              <label>End Date</label><br>
+              <input type="date" [value]="event.endDate">
+            </div>
+            <div class="col-md-6">
+              <label>Attends Number</label>
+              <input type="number" [value]="event.attendsNumber">
+            </div>
+            <div class="col-md-6">
+              <label>Event Type</label>
+              <input type="text" [value]="event.eventType">
+            </div>
+
+            <ul *ngIf="event.eventNote == 'Bad'">
+              <p>Event Note : {{event.eventNote}}</p>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </ul>
+            <hr>
+            <ul *ngIf="event.eventNote == 'NotBad'">
+              <p>Event Note : {{event.eventNote}}</p>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </ul>
+            <ul *ngIf="event.eventNote === 'Good'">
+              <p>Event Note : {{event.eventNote}} </p>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </ul>
+            <ul *ngIf="event.eventNote == 'VerryGood'">
+              <p>Event Note : {{event.eventNote}}</p>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </ul>
+            <ul *ngIf="event.eventNote == 'Excellent'">
+              <p>Event Note : {{event.eventNote}}</p>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </ul>
+            <hr>
+            <ul class="like-com">
+              <li (click)="like()">
+                <a style="cursor: pointer"><i class="la la-heart"></i> Like</a>
+                <img src="assets/images/liked-img.png" alt="">
+                <span>{{event.likes}}</span>
+              </li>
+              <li><a style="cursor: pointer" class="com"><img src="assets/images/com.png" alt="" data-bs-target="#comments" data-bs-toggle="modal">{{nbrCmnt}}</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <div class="container">
+          <label>Place</label>
+          <agm-map [latitude]="lat1" [longitude]="lng1" [zoom]="10" >
+            <agm-marker [latitude]="lat1" [longitude]="lng1"></agm-marker>
+          </agm-map>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Event Details End -->
+
+<!-- Comment Model begin -->
+<div class="modal fade" id="comments" aria-hidden="true" aria-labelledby="commentsLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsLabel2">Event Comments</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <li>
+          <div class="comment-list" *ngFor="let lc of listComment">
+            <div class="bg-img">
+              <img src="https://via.placeholder.com/40x40" alt="">
+            </div>
+            <div class="comment">
+              <h3>John Doe</h3>
+              <span><img src="assets/images/clock.png" alt="">{{lc.createDate}}</span>
+              <p>{{lc.content}}</p>
+              <a style="cursor: pointer"><i class="fa fa-trash-o" (click)="deleteComment(lc.idCommentE)"></i>Delete</a><br>
+            </div>
+          </div><!--comment-list end-->
+        </li>
+
+        <div class="post-comment-box">
+
+          <div class="user-poster">
+            <div class="usr-post-img">
+              <img src="http://via.placeholder.com/40x40" alt="">
+            </div>
+            <div class="post_comment_sec">
+              <form id="content" #f="ngForm">
+        <textarea placeholder="Your Comment" name="content"  class="form-control" [(ngModel)]="cmt" ngModule required></textarea>
+                <button type="button" (click)="comment()" [hidden]="f.invalid" >Post Comment</button>
+
+              </form>
+            </div><!--post_comment_sec end-->
+          </div><!--user-poster end-->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#eventDetails" data-bs-toggle="modal">Back to first</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Comment Model ends -->
+
+<!-- Note Model begin -->
+<div class="modal fade" id="note" aria-hidden="true" aria-labelledby="noteLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="noteLabel2" style="font-size: xx-large">Note Event</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container" style="padding-left: 15px">
+          <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-danger" (click)="noteEvent1(event)" >Bad</button>
+            <button type="button" class="btn btn-outline-danger" (click)="noteEvent2(event)">Not Bad</button>
+            <button type="button" class="btn btn-outline-warning" (click)="noteEvent3(event)">Good</button>
+            <button type="button" class="btn btn-outline-success" (click)="noteEvent4(event)">Verry Good</button>
+            <button type="button" class="btn btn-outline-success" (click)="noteEvent5(event)">Excelent</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#eventDetails" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Note Model ends -->
+
+
+
+

@@ -1,0 +1,136 @@
+<section class="forum-sec">
+  <div class="container">
+    <div class="forum-links">
+      <ul>
+        <li class="active"><a href="#" title="">Latest</a></li>
+        <li><a href="#" title="">Unanswered</a></li>
+        <li><a href="#" title="">Treading</a></li>
+        <li><a href="#" title="">Popular This Week</a></li>
+        <li><a href="#" title="">Popular of Month</a></li>
+      </ul>
+    </div><!--forum-links end-->
+    <div class="forum-links-btn">
+      <a href="#" title=""><i class="fa fa-bars"></i></a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="forum-page">
+  <div class="container">
+    <div class="forum-questions-sec">
+      <div class="row">
+        <div class="col-lg-8">
+          <app-forum-card></app-forum-card>
+
+
+        </div>
+        <div class="col-lg-4">
+          <div class="widget widget-user">
+            <h3 class="title-wd">Top User of the Week</h3>
+            <ul>
+              <li>
+                <div class="usr-msg-details">
+                  <div class="usr-ms-img">
+                    <img src="http://via.placeholder.com/50x50" alt="">
+                  </div>
+                  <div class="usr-mg-info">
+                    <h3>Jessica William</h3>
+                    <p>Graphic Designer </p>
+                  </div><!--usr-mg-info end-->
+                </div>
+                <span><img src="images/price1.png" alt="">1185</span>
+              </li>
+              <li>
+                <div class="usr-msg-details">
+                  <div class="usr-ms-img">
+                    <img src="http://via.placeholder.com/50x50" alt="">
+                  </div>
+                  <div class="usr-mg-info">
+                    <h3>John Doe</h3>
+                    <p>PHP Developer</p>
+                  </div><!--usr-mg-info end-->
+                </div>
+                <span><img src="images/price2.png" alt="">1165</span>
+              </li>
+              <li>
+                <div class="usr-msg-details">
+                  <div class="usr-ms-img">
+                    <img src="http://via.placeholder.com/50x50" alt="">
+                  </div>
+                  <div class="usr-mg-info">
+                    <h3>Poonam</h3>
+                    <p>Wordpress Developer </p>
+                  </div><!--usr-mg-info end-->
+                </div>
+                <span><img src="images/price3.png" alt="">1120</span>
+              </li>
+              <li>
+                <div class="usr-msg-details">
+                  <div class="usr-ms-img">
+                    <img src="http://via.placeholder.com/50x50" alt="">
+                  </div>
+                  <div class="usr-mg-info">
+                    <h3>Bill Gates</h3>
+                    <p>C & C++ Developer </p>
+                  </div><!--usr-mg-info end-->
+                </div>
+                <span><img src="images/price4.png" alt="">1009</span>
+              </li>
+            </ul>
+          </div><!--widget-user end-->
+
+        </div>
+        <div class="card"><div class="container">
+          <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+
+              <h1>Create post</h1>
+
+              <form action="" method="POST">
+
+                <div class="form-group has-error">
+                  <label for="slug">Slug <span class="require">*</span> <small>(This field use in url path.)</small></label>
+                  <input type="text" class="form-control" name="slug" />
+                  <span class="help-block">Field not entered!</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="title">Title <span class="require">*</span></label>
+                  <input type="text" class="form-control" name="title" />
+                </div>
+
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea rows="5" class="form-control" name="description" ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <p><span class="require">*</span> - required fields</p>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">
+                    Create
+                  </button>
+                  <button class="btn btn-default">
+                    Cancel
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+          </div>
+        </div></div>
+      </div>
+    </div><!--forum-questions-sec end-->
+  </div>
+</section><!--forum-page end-->
+<!--theme-layout end-->
+
+

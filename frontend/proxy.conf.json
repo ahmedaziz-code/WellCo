@@ -1,0 +1,6 @@
+{
+  "/WellCo": {
+    "target": "http://localhost:8089",
+    "secure": false
+  }
+}

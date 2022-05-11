@@ -1,0 +1,227 @@
+<style>
+  label{
+    color: indianred;
+    font-size: large;
+  }
+  th{
+    text-align: center;
+  }
+</style>
+<div class="CalendarButton">
+  <i class="fa fa-reply" aria-hidden="true" routerLink="/ShowEvent"></i>
+</div>
+
+<br><br>
+<h1 style="text-align: center;padding-top: 50px;color: indianred; font-size: xxx-large; font-family: 'Source Sans Pro', sans-serif">Add Event</h1>
+<!--FORM EVENT BEGIN-->
+<div class="container" style="margin-top: 30px; border-color: indianred;border-radius: 25px">
+  <form #f="ngForm" id="saveEvent" class="row g-2">
+    <div class="col-md-12">
+      <label>Name</label>
+      <input [class.is-invalid]="e.invalid && e.touched" type="text" name="name" class="form-control" [(ngModel)]="event.name" required #e="ngModel">
+      <div class="alert alert-success" *ngIf="e.valid">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="e.invalid && e.touched">
+        Please enter the Event Name !
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label>Description</label>
+      <input [class.is-invalid]="d.invalid && d.touched" type="text" name="description" class="form-control" [(ngModel)]="event.description" required #d="ngModel">
+      <div class="alert alert-success" *ngIf="d.valid">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="d.invalid && d.touched">
+        Please Write A Description !
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label>Event Type</label>
+      <select [class.is-invalid]="et.invalid && et.touched" class="form-select" name="eventType" [(ngModel)]="event.eventType" required #et="ngModel">
+        <option *ngFor="let key of keys" [value]="eventType[key]" [label]="eventType[key]"></option>
+      </select>
+      <div class="alert alert-success" *ngIf="et.valid">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="et.invalid && et.touched">
+        Please Select The Event Type !
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label>Start Day</label>
+      <input [class.is-invalid]="sd.invalid && sd.touched" type="date" name="startDate" class="form-control" [(ngModel)]="event.startDate" required  #sd="ngModel">
+      <div class="alert alert-success" *ngIf="sd.valid && verifStartDate(event.startDate)">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="sd.invalid && sd.touched">
+        <div *ngIf="sd.errors!['required']">Please Select A Date</div>
+      </div>
+      <div class="alert alert-danger" *ngIf="!verifStartDate(event.startDate) && sd.touched">This is an OLD DATE !</div>
+    </div>
+    <div class="col-md-4">
+      <label>End Day</label>
+      <input [class.is-invalid]="ed.invalid && ed.touched" type="date" name="endDate" class="form-control" [(ngModel)]="event.endDate" required #ed="ngModel">
+      <div class="alert alert-success" *ngIf="ed.valid && verifEndDate(event.startDate,event.endDate)">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="ed.invalid && ed.touched">Please Select Date !</div>
+      <div class="alert alert-danger" *ngIf="!verifEndDate(event.startDate, event.endDate) && ed.touched">Verify The Date</div>
+    </div>
+    <div class="col-md-4">
+      <label>Attends Number</label>
+      <input [class.is-invalid]="an.invalid && an.touched" type="number" name="attendsNumber" class="form-control" [(ngModel)]="event.attendsNumber" required min="1" #an="ngModel">
+      <div class="alert alert-success" *ngIf="an.valid">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="an.invalid && an.touched">
+        <div *ngIf="an.errors!['required']">Please Enter The Attends Number !</div>
+        <div *ngIf="an.errors!['min']">Please Enter A Valid Number !</div>
+      </div>
+    </div>
+
+    <div class="col-md-4" style="margin-top: 10px; ">
+      <label>Upload Image</label>
+      <input type="file" class="form-control" accept="image/*" (change)="onSelectedImage($event)" name="file" ngModel required #i="ngModel">
+      <div class="alert alert-success" *ngIf="i.valid">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="i.invalid && i.touched">
+        Please Select An Image !
+      </div>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#image">Show Image</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <label>Office</label>
+      <select (change)="update($event)" [class.is-invalid]="o.invalid && o.touched" class="form-select" name="office" ngModel required #o="ngModel">
+        <option *ngFor="let o of listOffice " [value]="o.idOffice" [label]="o['officeName']"></option>
+      </select>
+      <div class="alert alert-success" *ngIf="o.valid">
+        Looks Good
+      </div>
+      <div class="alert alert-danger" *ngIf="o.invalid && o.touched">
+        Please Select An Office !
+      </div>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Add Office
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label>Place</label>
+      <div class="d-grid gap-2">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#placeModel">
+          Add Place
+        </button>
+      </div>
+    </div>
+    <div >
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-danger" (click)="saveEvent()"  [disabled]="f.invalid" >save</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+<!--FORM EVENT END-->
+
+<!--Tabe-->
+<div class="container" style="padding-top: 50px">
+  <div style="text-align: center;font-size: xx-large; font-style: oblique">Events</div>
+  <div class="table-light" style="margin-top: 20px" >
+    <table  class="table table-hover table-bordered" style="text-align: center" id="table" >
+      <thead style="text-align: center">
+      <tr>
+        <th style="text-align: center">Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Start Day</th>
+<!--        <th>Delete</th>-->
+      </tr>
+      </thead>
+      <tr *ngFor="let e of listEvent">
+        <td>{{e.idEvent}}</td>
+        <td>{{e.name}}</td>
+        <td>{{e.eventType}}</td>
+        <td>{{e.startDate}}</td>
+<!--        <td><button class="btn btn-outline-success"  (click)="deleteEvent(e.idEvent)">Delete</button></td>-->
+      </tr>
+    </table>
+  </div>
+</div>
+<!-- End Table -->
+
+<!-- Modal Add Office -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Office</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #fO="ngForm">
+          <div class="form-group">
+            <label>Office Name</label>
+            <input type="text" name="name" [(ngModel)]="office.officeName" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" [disabled]="fO.invalid" (click)="addOffice()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Add Office -->
+
+<!-- Modal View Image-->
+<div class="modal fade" id="image" tabindex="-1" aria-labelledby="imageLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageLabel">Add Office</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="imageURL" class="container"   *ngIf="imageURL" ><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal View Image-->
+<!-- Modal Add Place -->
+<div class="modal fade" id="placeModel" tabindex="-1" aria-labelledby="placeModelLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="placeModelLabel">Add Place</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="10" (mapClick)="selectMarker($event.coords.lat, $event.coords.lng)" >
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+        <p>{{lat1}},,,{{lng1}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Add Place -->
+
+
+
+
+
